@@ -31,7 +31,7 @@ export default class MainScreen extends Component {
                 <View style={styles.login_view}>
                     <Text 
                         style={styles.button}
-                        onPress={() => this.Login_handler()} >
+                        onPress={() => this.goScreen()} >
                             Kakao Login
                     </Text>
 

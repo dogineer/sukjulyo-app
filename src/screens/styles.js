@@ -6,12 +6,13 @@ const Height = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        marginBottom: 100,
         alignItems: 'center',
         justifyContent: 'center',
     },
 
     title: {
-        height: 0.5*Height,
+        height: 0.4*Height,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'rgb(31, 197, 142)'
@@ -25,14 +26,15 @@ const styles = StyleSheet.create({
     },  
 
     font_L:{
-        fontSize:0.2*Width,
+        margin: 10,
+        fontSize: 70,
         fontWeight:'bold',
         color: 'white',
         shadowColor: 'rgba(0,0,0,0.2)'
     },
 
     font_M:{
-        fontSize:0.06*Width,
+        fontSize:20,
         color: 'white',
     },
 
@@ -71,7 +73,6 @@ const styles = StyleSheet.create({
     },
 
     footer: {
-        position: 'fixed',
         alignItems: 'center',
         justifyContent: 'center',
         left: 0,

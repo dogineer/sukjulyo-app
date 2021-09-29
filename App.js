@@ -4,7 +4,10 @@ import { createAppContainer } from 'react-navigation';
 
 // AppTabNavigator
 import MainScreen from './src/screens/MainScreen';
+import BasisScreen from './src/screens/basisSetting/basis'
 import NavScreen from './src/components/TabNavigator';
+
+import SearchTest from './src/screens/basisSetting/SearchBar/SearchBar'
 
 const AppStackNavigator = createStackNavigator(
     {
@@ -15,6 +18,18 @@ const AppStackNavigator = createStackNavigator(
             headerShown: false }
         },
         // End Navigatior route
+
+        SearchTest: {
+            screen: SearchTest, 
+            navigationOptions: {
+            headerShown: false }
+        },
+
+        UserBasis: {
+            screen: BasisScreen,
+            navigationOptions: {
+                headerShown: false }
+        },
 
         Home: { 
             screen: NavScreen ,

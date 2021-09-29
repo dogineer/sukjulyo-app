@@ -8,7 +8,25 @@ class HomeScreen extends Component{
             this.state={
                 datas: [
                     {
-                        //Sample datas
+                        //Sample datas 1
+                        "title" : "제목",
+                        "content" : "내용",
+                        "reg" : "날짜",
+                    },
+                    {
+                        //Sample datas 2
+                        "title" : "제목",
+                        "content" : "내용",
+                        "reg" : "날짜",
+                    },
+                    {
+                        //Sample datas 3
+                        "title" : "제목",
+                        "content" : "내용",
+                        "reg" : "날짜",
+                    },
+                    {
+                        //Sample datas 4
                         "title" : "제목",
                         "content" : "내용",
                         "reg" : "날짜",

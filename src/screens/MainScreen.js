@@ -4,7 +4,7 @@ import styles from "./styles";
 
 export default class MainScreen extends Component {
     goScreen(){
-        this.props.navigation.navigate('Home')
+        this.props.navigation.navigate('UserBasis')
     }
 
     render() {

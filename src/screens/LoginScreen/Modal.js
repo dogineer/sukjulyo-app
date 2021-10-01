@@ -26,6 +26,8 @@ export default SocialWebviewModal;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'ghostwhite'
+        margin: 0,
+        width: '100%',
+        height: '100%',
     },
 });

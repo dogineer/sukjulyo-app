@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from "react-native";
+import LoginScreen from './LoginScreen';
 import styles from "./styles";
 
 export default class MainScreen extends Component {
@@ -29,10 +30,11 @@ export default class MainScreen extends Component {
                 </View>
 
                 <View style={styles.login_view}>
+                    <LoginScreen />
                     <Text 
                         style={styles.button}
                         onPress={() => this.goScreen()} >
-                            Kakao Login
+                            TEST
                     </Text>
 
                     <Text 

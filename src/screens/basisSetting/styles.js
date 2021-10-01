@@ -6,15 +6,13 @@ const Height = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginBottom: 100,
         alignItems: 'center',
         justifyContent: 'center',
     },
 
     title: {
+        width: '100%',
         height: 0.1*Height,
-        alignItems: 'center',
-        justifyContent: 'center',
         backgroundColor: 'rgb(31, 197, 142)'
     },
 
@@ -78,7 +76,22 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-    }
+    },
+
+    //Search styles
+    viewStyle: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        marginTop: Platform.OS == 'ios' ? 50 : 0,
+    },
+    textStyle: {
+        margin: 5,
+        width: '100%',
+        padding: 10,
+        backgroundColor: 'white',
+    },
+    //End Search styles
 });
 
 export default styles;

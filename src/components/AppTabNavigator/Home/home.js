@@ -111,17 +111,17 @@ class HomeScreen extends Component{
         return(
             <SafeAreaView style={{ flex: 1 }}>
                 <ScrollView>
-                <TouchableOpacity 
-                    style={style.contentView} 
-                    onPress={()=> alert("상세보기 준비중")}
-                    >
+                    <TouchableOpacity 
+                        style={style.contentView} 
+                        onPress={()=> alert("상세보기 준비중")}
+                        >
 
-                    <View style={style.infoView}>
-                        <Text style={style.titleText}>{item.title}</Text>
-                        <Text style={style.contentText}>{item.content}</Text>
-                        <Text style={style.contentText}>{item.reg}</Text>
-                    </View>
-                </TouchableOpacity>
+                        <View style={style.infoView}>
+                            <Text style={style.titleText}>{item.title}</Text>
+                            <Text style={style.contentText}>{item.content}</Text>
+                            <Text style={style.contentText}>{item.reg}</Text>
+                        </View>
+                    </TouchableOpacity>
                 </ScrollView>
             </SafeAreaView>
         );

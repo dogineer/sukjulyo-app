@@ -11,9 +11,21 @@ const styles = StyleSheet.create({
     },
 
     title: {
+        paddingTop: 30,
         width: '100%',
-        height: 0.1*Height,
+        height: 0.14*Height,
         backgroundColor: 'rgb(31, 197, 142)'
+    },
+
+    contentView:{
+        flexDirection:'row',
+        alignItems: 'center',
+        width: '100%',
+        borderColor: 'darkgrey',
+        padding: 10,
+        marginBottom:10,
+        borderRadius: 30,
+        backgroundColor: 'white',
     },
 
     login_view: {
@@ -60,10 +72,10 @@ const styles = StyleSheet.create({
     triangle: {
         width: 0,
         height: 0,
-        borderTopWidth: 40,
-        borderRightWidth: 20,
+        borderTopWidth: 18,
+        borderRightWidth: 10,
         borderBottomWidth: 0,
-        borderLeftWidth: 20,
+        borderLeftWidth: 10,
         borderTopColor: 'rgb(31, 197, 142)',
         borderRightColor: 'transparent',
         borderBottomColor: 'transparent',
@@ -83,11 +95,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
-        marginTop: Platform.OS == 'ios' ? 50 : 0,
+        // marginTop: Platform.OS == 'ios' ? 50 : 0,
     },
+
     textStyle: {
         margin: 5,
-        width: '100%',
+        width: '80%',
+        borderRadius: 50,
         padding: 10,
         backgroundColor: 'white',
     },

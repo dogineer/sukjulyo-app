@@ -9,6 +9,13 @@ import NavScreen from './src/components/TabNavigator';
 
 import SearchTest from './src/screens/basisSetting/SearchBar/SearchBar'
 
+//Home
+import NewsDetail from './src/components/AppTabNavigator/Home/Stack/NewsDetail'
+
+//Setting
+import Help from './src/components/AppTabNavigator/Setting/Stack/Help'
+import appInfo from './src/components/AppTabNavigator/Setting/Stack/AppInfo'
+
 const AppStackNavigator = createStackNavigator(
     {
         // Navigatior router
@@ -18,6 +25,13 @@ const AppStackNavigator = createStackNavigator(
             headerShown: false }
         },
         // End Navigatior route
+
+        NewsDetailPage: { 
+            screen: NewsDetail,
+            navigationOptions:{
+                title: 'News Detail'
+            }// 뉴스 세부 디테일 내용
+        },
 
         SearchTest: {
             screen: SearchTest, 
@@ -29,6 +43,20 @@ const AppStackNavigator = createStackNavigator(
             screen: BasisScreen,
             navigationOptions: {
                 headerShown: false }
+        },
+
+        HelpPage: { 
+            screen: Help,
+            navigationOptions:{
+                title: '고객센터/도움말'
+            } 
+        },
+
+        AppInfoPage: { 
+            screen: appInfo,
+            navigationOptions:{
+                title: '버전 정보'
+            } 
         },
 
         Home: { 

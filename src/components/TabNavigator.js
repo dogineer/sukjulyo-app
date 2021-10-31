@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from './AppTabNavigator/Home/home'
-import SettingScreen from './AppTabNavigator/Home/home'
+import SettingScreen from './AppTabNavigator/Setting/setting'
 
 const AppTabNavigator = createBottomTabNavigator(
     {
@@ -31,7 +31,7 @@ const AppTabNavigator = createBottomTabNavigator(
                     activeTintColor: 'rgb(31, 297, 142)',
                     inactiveTintColor: 'white',
                     },
-                tabBarLabel: '홈',
+                tabBarLabel: '설정',
                 }, 
             },
         // End TabNavigatior router

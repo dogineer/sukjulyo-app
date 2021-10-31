@@ -3,7 +3,6 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 
 import SocialWebviewModal from './Modal';
 
-
 export default class LoginScreen extends Component {
     
     constructor(props) {
@@ -11,8 +10,8 @@ export default class LoginScreen extends Component {
         this.state = {
             socialModalVisible: false,
             source: undefined,
-            CLIENT_URL: 'CLIENT_URL',
-            REDIRECT_URL: 'REDIRECT_URL'
+            CLIENT_URL: '',
+            REDIRECT_URL: 'http://localhost:19006/'
         };
     }
 
@@ -42,8 +41,7 @@ export default class LoginScreen extends Component {
                 <TouchableOpacity
                     onPress={() => this.onPressSocial(
                         `authorize?client_id=${this.state.CLIENT_URL}&redirect_uri=${this.state.REDIRECT_URL}&response_type=code`
-                        )}
-                >
+                        )}>
                     <Image
                         style={{
                             resizeMode: 'contain',

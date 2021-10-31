@@ -32,18 +32,22 @@ const style= StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'rgb(31, 197, 142)'
     },
+
+    titleContent: {
+        padding: '5%',
+        borderRadius: 10,
+        backgroundColor: 'white',
+    },
     
     titleText:{
         fontSize:0.05*Width,
         fontWeight:'bold',
         textAlign:'center',
         flex: 0,
-        paddingTop:30,
         paddingBottom:16,
     },
 
     infoView:{
-        flex:1,
         flexDirection:'column',
     },
 

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {
-    Text, View, StyleSheet, FlatList, ActivityIndicator, Platform,
+    Text, View, TouchableOpacity, FlatList, ActivityIndicator, Platform,
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import styles from "./styles";
-
 
 class BasisScreen extends Component {
     constructor(props) {
@@ -50,7 +49,7 @@ class BasisScreen extends Component {
     
     SearchFilterFunction(text) {
         const newData = this.arrayholder.filter(function(item) {
-        const itemData = item.email ? item.email.toUpperCase() : ''.toUpperCase();
+        const itemData = item.username ? item.username.toUpperCase() : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
         });
@@ -90,6 +89,20 @@ class BasisScreen extends Component {
                 </View>
             );
         }
+
+        const renderItem = ({item}) => {
+            console.log(item);
+            return(
+                <TouchableOpacity
+                    style={styles.contentView} 
+                    onPress={() => alert("click : " + item.username)}
+                    >
+                    <View>
+                        <Text>{item.username}</Text>
+                    </View>
+                </TouchableOpacity>
+            )
+        }
         
         return(
             <View style={styles.viewStyle}>
@@ -98,11 +111,14 @@ class BasisScreen extends Component {
                         round
                         inputStyle={{backgroundColor: 'white'}}
                         inputContainerStyle={{backgroundColor: 'white'}}
-                        containerStyle={{
-                            backgroundColor: 'white', 
-                            margin: 10,
+                        containerStyle={{ 
+                            margin: 8,
                             borderWidth: 1, 
-                            borderRadius: 5
+                            borderRadius: 5,
+                            backgroundColor: 'rgb(31, 197, 142)',
+                            borderColor: 'rgb(31, 197, 142)',
+                            borderTopColor: 'rgb(31, 197, 142)',
+                            borderBottomColor: 'rgb(31, 197, 142)' 
                         }}
                         searchIcon={{ size: 30 }}
                         onChangeText={text => this.SearchFilterFunction(text)}
@@ -116,15 +132,19 @@ class BasisScreen extends Component {
 
                 <FlatList
                     data={this.state.dataSource}
-                    ItemSeparatorComponent={this.ListViewItemSeparator}
-                    renderItem={({ item }) => (
-                        <Text style={styles.textStyle}>{item.email}</Text>
-                )}
+                    // ItemSeparatorComponent={this.ListViewItemSeparator}
+                    renderItem={renderItem}
                     enableEmptySections={true}
-                    style={{ marginTop: 10 }}
+                    style={{ marginTop: 25 }}
                     keyExtractor={(item, index) => index.toString()}
                 />
+
+                    <View style={styles.textStyle}>
+                        <Text>{"추가한 항목 : "}</Text>
+                    </View>
+
                 <View style={styles.footer}>
+                    
 
                     <Text 
                         style={styles.button}
@@ -137,7 +157,6 @@ class BasisScreen extends Component {
                             {"Team ARCHIVE \n\n"}
                     </Text>
                 </View>
-
             </View>
         )
     }

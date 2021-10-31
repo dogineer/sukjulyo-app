@@ -9,25 +9,37 @@ class HomeScreen extends Component{
                 datas: [
                     {
                         //Sample datas 1
-                        "title" : "제목",
-                        "content" : "내용",
-                        "reg" : "날짜",
+                        "title" : "오늘의 날씨는 맑음, 곧 뜨뜻",
+                        "content" : "내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용",
+                        "reg" : "2021-11-01",
                     },
                     {
                         //Sample datas 2
-                        "title" : "제목",
+                        "title" : "딸규 취업하다! 축하한다.",
                         "content" : "내용",
-                        "reg" : "날짜",
+                        "reg" : "2021-10-21",
                     },
                     {
                         //Sample datas 3
-                        "title" : "제목",
+                        "title" : "박봉구 결국 영상 디자인으로.. 두둥탁",
+                        "content" : "내용",
+                        "reg" : "2021-10-24",
+                    },
+                    {
+                        //Sample datas 4
+                        "title" : "킹형준... 실리콘 벨리 취업, AI 개발에 몰두..",
                         "content" : "내용",
                         "reg" : "날짜",
                     },
                     {
-                        //Sample datas 4
-                        "title" : "제목",
+                        //Sample datas 5
+                        "title" : "타이틀",
+                        "content" : "내용",
+                        "reg" : "날짜",
+                    },
+                    {
+                        //Sample datas 6
+                        "title" : "타이틀",
                         "content" : "내용",
                         "reg" : "날짜",
                     }
@@ -70,7 +82,7 @@ class HomeScreen extends Component{
         }
     
     news_detail(item){
-        this.props.navigation.navigate('news_detail', {item: item});
+        this.props.navigation.navigate('NewsDetailPage', {item: item});
     }
 
     render(){
@@ -86,9 +98,11 @@ class HomeScreen extends Component{
             <>
                 <View style={style.container}>
                     <View style={style.title}>
-                        <Text>
-                            3줄 요약 본
-                        </Text>
+                            <View style={style.titleContent}>
+                                <Text>
+                                    💡 "ARCHIVE TEAM"로 검색한 결과입니다. 💡
+                                </Text>
+                            </View>
                         </View>
                     <View style={style.triangle}></View>
                 </View>
@@ -113,7 +127,7 @@ class HomeScreen extends Component{
                 <ScrollView>
                     <TouchableOpacity 
                         style={style.contentView} 
-                        onPress={()=> alert("상세보기 준비중")}
+                        onPress={()=> this.news_detail(item)}
                         >
 
                         <View style={style.infoView}>

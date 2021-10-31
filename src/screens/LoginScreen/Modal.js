@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 import SocialWebview from './SocialWebview';
 
 const SocialWebviewModal = (props) => {
-    console.log("uri: ", props.source);
+    console.log("Modal on! => Login \n", "uri: ", props.source);
 
     return (
         <Modal

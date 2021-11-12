@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text } from "react-native";
+import AsyncStorage, { View, Text } from "react-native";
 import LoginScreen from './LoginScreen';
 import styles from "./styles";
+
+import cookie from 'react-cookies'
 
 export default class MainScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             url: 'https://kapi.kakao.com/v2/user/me', 
-            access_token: ''
+			logedIn: false,
+            token: cookie.load('sukjulyo-app-jwt')
         };
     }
 
@@ -17,22 +20,20 @@ export default class MainScreen extends Component {
     }
 
     token_test(){
-        console.log(this.state.access_token);
-        fetch(this.state.url, {
-            method: 'GET',
-            headers:{
-                'Authorization' : `Bearer ${this.state.access_token}`,
-                'Content-Type':'application/x-www-form-urlencoded;charset=utf-8',
-            }
-        })
-        .then(res => res.json())
-        .then(res => console.log(res))
-        .catch(error => {
-            console.error(error);
-        });
+		console.log('do token test')
+        console.log(this.state.token);
+        
     }
 
+	setToken = (token) => {
+		this.setState({
+			...this.state,
+			token
+		});
+	}
+
     render() {
+		
         return (
             <View>
                 <View style={styles.title}>
@@ -48,12 +49,16 @@ export default class MainScreen extends Component {
                 </View>
 
                 <View style={styles.login_view}>
-                    <Text style={{color: 'grey'}}>{
+
+					<Text style={{color: 'grey'}}>{
                     "바쁜 현대인들의 위한 짧고 간결한 원하는 뉴스를 제공합니다. \n카카오톡 서비스를 이용하고 있으며 개인정보는 \n'이메일', '이름'만 가져올 뿐 다른 개인정보는 수집하지 않습니다. \n"
                     }</Text>
-                    <LoginScreen />
+
+                    <LoginScreen setToken={this.setToken}/>
+
                     <Text style={{color: 'grey'}}>{"카카오톡앱을 사용하여 로그인을 해주세요! :)\n"}</Text>
-                    <Text 
+                    
+					<Text 
                         style={styles.button}
                         onPress={() => this.goScreen()} >
                             개발자 테스트 모드

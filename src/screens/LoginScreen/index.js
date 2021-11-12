@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Linking, Platform } from 'react-native';
 
 import SocialWebviewModal from './Modal';
 
@@ -11,15 +11,22 @@ export default class LoginScreen extends Component {
             socialModalVisible: false,
             source: undefined,
             CLIENT_URL: '',
-            REDIRECT_URL: 'http://localhost:19006/'
+            REDIRECT_URL: 'http://localhost:8080/oauth2/authorization/kakao',
+			CALLBACK_URL:'http://localhost:8080/auth'
         };
     }
 
-    onPressSocial = async (social) => {
-        this.setState({
-            socialModalVisible: !this.state.socialModalVisible,
-            source: `https://kauth.kakao.com/oauth/${social}`,
-        });
+    onPressSocial = async () => {
+		if (Platform.OS === 'web') {
+			Linking.openURL(`${this.state.REDIRECT_URL}`)
+		}
+		else {
+			this.setState({
+				...this.state,
+				socialModalVisible: !this.state.socialModalVisible,
+				source: `${this.state.REDIRECT_URL}`,
+			});
+		}
     };
 
     closeSocialModal = async () => {
@@ -31,17 +38,18 @@ export default class LoginScreen extends Component {
     render() {
         return (
             <View>
-                {this.state.source !== undefined ? (
-                <SocialWebviewModal
-                    visible={this.state.socialModalVisible}
-                    source={this.state.source}
-                    closeSocialModal={this.closeSocialModal}
-                />
-                ) : null}
+                {
+					this.state.source !== undefined ? (
+						<SocialWebviewModal
+							visible={this.state.socialModalVisible}
+							source={this.state.source}
+							closeSocialModal={this.closeSocialModal}
+							callbackUrl={this.state.CALLBACK_URL}
+							setToken={this.props.setToken}
+						/>
+					): null}
                 <TouchableOpacity
-                    onPress={() => this.onPressSocial(
-                        `authorize?client_id=${this.state.CLIENT_URL}&redirect_uri=${this.state.REDIRECT_URL}&response_type=code`
-                        )}>
+                    onPress={() => this.onPressSocial()}>
                     <Image
                         style={{
                             resizeMode: 'contain',

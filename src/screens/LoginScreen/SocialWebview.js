@@ -16,38 +16,36 @@ export default class LoginScreen extends Component {
         }
     }
 
-    INJECTED_JAVASCRIPT =
-        '(function() {if(window.document.getElementsByTagName("pre").length>0){window.ReactNativeWebView.postMessage((window.document.getElementsByTagName("pre")[0].innerHTML));}})();';
+    _handleMessage = async (syntheticEvent) => {
+		const { nativeEvent } = syntheticEvent;
 
-    _handleMessage = async (event) => {
-        console.log("_handleMessage start");
-        console.log(JSON.parse(event.nativeEvent.data));
+		console.log(nativeEvent)
 
-        let result = JSON.parse(event.nativeEvent.data);
-        let success = result.message;
+		if(nativeEvent.url.indexOf(this.props.callbackUrl) != -1) {
+			
+			let params = {};
+			nativeEvent.url.replace(
+				/[?&]{1}([^=&#]+)=([^&#]*)/g, 
+				(s, k, v) => { 
+					url=s;
+					params[k] = decodeURIComponent(v); 
+				}
+			);
 
-        if (success) {
-            let userToken = result.Authorization;
+			this.props.setToken(params['token'])
 
-            try {
-                await storeData(userToken);
-            } catch (e) {
-                console.log(e);
-            }
-        }
-    
-    this.props.closeSocialModal();
-};
+			this.props.closeSocialModal();
+		}
 
-render() {
-    return (
-        <WebView
-            originWhitelist={['*']}
-            injectedJavaScript={this.INJECTED_JAVASCRIPT}
-            source={this.props.source}
-            javaScriptEnabled={true}
-            onMessage={this._handleMessage}
-        />
-    );
-}
+	};
+
+	render() {
+		return (
+			<WebView
+				originWhitelist={['*']}
+				source={this.props.source}
+				onLoadStart={this._handleMessage}
+			/>
+		);
+	}
 }

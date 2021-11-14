@@ -48,7 +48,9 @@ const style= StyleSheet.create({
     },
 
     infoView:{
-        flexDirection:'column',
+        flex:1,
+        textAlign: 'center',
+        alignItems: 'center'
     },
 
     contentView:{
@@ -57,6 +59,7 @@ const style= StyleSheet.create({
         width: '100%',
         borderWidth:0,
         padding:10,
+        paddingTop: 25,
         marginBottom:10,
         backgroundColor: 'white',
         borderRadius: 10,
@@ -75,6 +78,15 @@ const style= StyleSheet.create({
         paddingTop: 300
     },
     
+    ButtonView: {
+        flex: 3,
+        margin: 10,
+        width: '15%',
+        borderRadius: 50,
+        alignItems: 'center',
+        backgroundColor: 'rgb(31, 197, 142)',
+        padding:10,
+    }
 });
 
 export default style;

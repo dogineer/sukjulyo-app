@@ -33,17 +33,12 @@ const AppStackNavigator = createStackNavigator(
             }// 뉴스 세부 디테일 내용
         },
 
-        SearchTest: {
-            screen: SearchTest, 
-            navigationOptions: {
-            headerShown: false }
-        },
-
-        UserBasis: {
+        UserBasis: { 
             screen: BasisScreen,
             navigationOptions: {
+                gestureEnabled: false,
                 headerShown: false }
-        },
+        }, //사용자 카테고리 페이지
 
         HelpPage: { 
             screen: Help,
@@ -62,6 +57,7 @@ const AppStackNavigator = createStackNavigator(
         Home: { 
             screen: NavScreen ,
             navigationOptions:{
+                gestureEnabled: false,
                 headerTintColor: 'white',
                 headerStyle: {
                     backgroundColor: 'rgb(31, 197, 142)',
@@ -73,7 +69,8 @@ const AppStackNavigator = createStackNavigator(
                 title: '석줄요',
                 headerTitleAlign: 'center',  
                 headerRight: 0,
-            }}, 
+            }
+        }, 
     },
     
     { initialRouteName: "Login", },

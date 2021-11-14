@@ -54,8 +54,29 @@ const styles = StyleSheet.create({
         height: 50,
         padding: 18,
         textAlign: 'center',
+        alignItems: 'center',
         fontWeight: 'bold',
-        color: 'white',
+        borderRadius: 50,
+        backgroundColor: 'rgb(31, 197, 142)'
+    },
+
+    button_delete: {
+        margin: 10,
+        width: 300,
+        height: 50,
+        padding: 18,
+        textAlign: 'center',
+        alignItems: 'center',
+        fontWeight: 'bold',
+        borderRadius: 50,
+        backgroundColor: 'rgb(200, 100, 100)'
+    },
+
+    selectContent: {
+        margin: 10,
+        padding: 18,
+        width: 350,
+        borderRadius: 20,
         backgroundColor: 'rgb(31, 197, 142)'
     },
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Text, View, TouchableOpacity, FlatList, ActivityIndicator, Platform,
 } from 'react-native';
-import { SearchBar } from 'react-native-elements';
+import { CheckBox,Chip,SearchBar } from 'react-native-elements';
 import styles from "./styles";
 
 class BasisScreen extends Component {
@@ -11,6 +11,11 @@ class BasisScreen extends Component {
         this.state = { 
             isLoading: true, 
             search: '' ,
+            
+            isSelected: [],
+            setSelection: [],
+
+            isChecked: false
         };
         this.arrayholder = [];
     }
@@ -18,6 +23,7 @@ class BasisScreen extends Component {
     componentDidMount() {
         this.setState({ isLoading: false});
         let url = "https://jsonplaceholder.typicode.com/users"
+
         fetch(url, {
             method: 'GET',
             headers: {
@@ -34,18 +40,14 @@ class BasisScreen extends Component {
             function() {
                 this.arrayholder = responseJson;
             });
+
+            console.log(this.state.dataSource);
         })
-        .catch(error => {
-            console.error(error);
-        });
+        .catch(error => { console.error(error);});
     }
 
-    search = text => {
-        console.log(text);
-    };
-    clear = () => {
-        this.search.clear();
-    };
+    search = text => { console.log(text);} ;
+    clear = () => { this.search.clear(); };
     
     SearchFilterFunction(text) {
         const newData = this.arrayholder.filter(function(item) {
@@ -64,8 +66,8 @@ class BasisScreen extends Component {
         return (
         <View
             style={{
-                height: 0.3,
-                width: '90%',
+                height: 1,
+                width: '100%',
                 backgroundColor: '#080808',}}
         />
         );
@@ -73,12 +75,43 @@ class BasisScreen extends Component {
 
     goScreen(){
         this.props.navigation.navigate('Home')
+
+        // console.log("fetch run !!");
+
+        // let url = "106.246.235.109:8080/news"
+        // fetch(url, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json',
+        //     },
+        //     body: this.state.isSelected
+        // })
+        // .then(response => response.json())
+        // .catch(error => { console.error(error);});
     }
 
-    goSearchTest(){
-        this.props.navigation.navigate('SearchTest')
+    All_Delete(){
+        console.log("content all clear run ...");
+        this.setState({
+            isSelected: [],
+        })
     }
     
+    handleAddToItem(item){
+        console.log('Detail item:', item);
+    }
+
+    checkChange = (item) => {
+        console.log("checkChange run ...        ID value:", item.id         ,"\n",this.state.isSelected);
+        
+        this.setState({isChecked: !this.state.isChecked})
+        
+        this.setState({
+            isSelected: this.state.isSelected.concat(item.username)
+        })
+    }
+
     render(){
         if (this.state.isLoading) {
             return (
@@ -86,21 +119,47 @@ class BasisScreen extends Component {
                     flex: 1, 
                     marginTop: Platform.OS == 'ios' ? 400 : 0, }}>
                     <ActivityIndicator />
+                    
                 </View>
             );
         }
+        
+        const fecthITEM = (item) => {
+            url = "";
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: item
+            })
+            .then(console.log("Fetch ADDITEM ..."))
+            .catch(err => { console.log('DATA GET ERROR',{ err })})
+        }
 
         const renderItem = ({item}) => {
-            console.log(item);
             return(
-                <TouchableOpacity
-                    style={styles.contentView} 
-                    onPress={() => alert("click : " + item.username)}
+                <View
+                    // style={styles.contentView} 
+                    // onPress={() => this.checkChange(item)}
                     >
-                    <View>
-                        <Text>{item.username}</Text>
-                    </View>
-                </TouchableOpacity>
+                    {/* <View>
+                        <Text>{item.username}</Text>    
+                    </View> */}
+                    <CheckBox
+                        containerStyle={{borderRadius: "50",}}
+                        checkedIcon='dot-circle-o'
+                        uncheckedIcon='circle-o'
+                        checkedColor="red"
+                        title={item.username}
+                        checked={this.state.isChecked}
+                        uncheckedColor='rgb(31, 197, 142)'
+                        onPress={()=> this.checkChange(item)}
+                        onLongPress={()=>alert(item.username, console.log(item.username))}
+                        />
+                </View>
             )
         }
         
@@ -130,28 +189,31 @@ class BasisScreen extends Component {
                 
                 <View style={styles.triangle}></View>
 
+                <View style={styles.selectContent}>
+                    <Text style={{fontWeight: 'bold',color: 'white'}}>{'selete : '+this.state.isSelected + ' '}</Text>
+                </View>
+
                 <FlatList
                     data={this.state.dataSource}
                     // ItemSeparatorComponent={this.ListViewItemSeparator}
                     renderItem={renderItem}
                     enableEmptySections={true}
-                    style={{ marginTop: 25 }}
+                    style={{ marginTop: 5 }}
                     keyExtractor={(item, index) => index.toString()}
                 />
 
-                    <View style={styles.textStyle}>
-                        <Text>{"추가한 항목 : "}</Text>
-                    </View>
-
                 <View style={styles.footer}>
+                    <TouchableOpacity 
+                        style={styles.button_delete}
+                        onPress={() => this.All_Delete()}>
+                        <Text style={{fontWeight: 'bold',color: 'white'}}> 초기화</Text>
+                    </TouchableOpacity>
                     
-
-                    <Text 
+                    <TouchableOpacity 
                         style={styles.button}
-                        onPress={() => this.goScreen()} >
-                            완료
-                    </Text>
-
+                        onPress={() => this.goScreen()}>
+                        <Text style={{fontWeight: 'bold',color: 'white'}}> 완료</Text>
+                    </TouchableOpacity>
                     <Text 
                         style={{color: 'black'}}>
                             {"Team ARCHIVE \n\n"}

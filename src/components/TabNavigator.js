@@ -12,6 +12,7 @@ const AppTabNavigator = createBottomTabNavigator(
         Home: { 
             screen: HomeScreen,
             navigationOptions: {
+                gestureEnabled: false,
                 tabBarOptions: { 
                     showLabel: false,
                     tabStyle: [{backgroundColor: 'rgb(31, 197, 142)'}],

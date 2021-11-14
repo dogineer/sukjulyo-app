@@ -1,5 +1,5 @@
 import React, { Component  } from 'react';
-import { View, Text, FlatList, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
+import { View, Button, Text, FlatList, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
 import style from "./styles";
 
 class HomeScreen extends Component{
@@ -15,7 +15,7 @@ class HomeScreen extends Component{
                     },
                     {
                         //Sample datas 2
-                        "title" : "딸규 취업하다! 축하한다.",
+                        "title" : "상규 취업하다! 축하한다.",
                         "content" : "내용",
                         "reg" : "2021-10-21",
                     },
@@ -134,6 +134,12 @@ class HomeScreen extends Component{
                             <Text style={style.titleText}>{item.title}</Text>
                             <Text style={style.contentText}>{item.content}</Text>
                             <Text style={style.contentText}>{item.reg}</Text>
+                            
+                            <TouchableOpacity 
+                                style={style.ButtonView}
+                                onPress={()=>alert("좋아요")}>
+                                <Text>❤️</Text>
+                            </TouchableOpacity>
                         </View>
                     </TouchableOpacity>
                 </ScrollView>

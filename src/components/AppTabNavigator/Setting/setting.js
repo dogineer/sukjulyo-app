@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 
     font_M:{
         fontSize:0.09*Width,
-        margin: 5
+        margin: 3
     },
 
     triangle: {
@@ -51,6 +51,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'rgb(31, 197, 142)'
     },
+
+    titleContent: {
+        padding: '5%',
+        borderRadius: 10,
+        backgroundColor: 'white',
+    },
 });
 
 class SettingScreen extends Component {
@@ -59,22 +65,24 @@ class SettingScreen extends Component {
             <>
                 <View style={styles.container}>
                     <View style={styles.title}>
-                        <Text>
-                            설정페이지
-                        </Text>
+                            <View style={styles.titleContent}>
+                                <Text>
+                                    ⚒ 설정페이지 ⚒
+                                </Text>
+                            </View>
                         </View>
                     <View style={styles.triangle}></View>
 
                     <View style={styles.settingContent}>
                         <TouchableOpacity
                             style={styles.optionButton}
-                            onPress={() => this.props.navigation.navigate('ProfilePage')}>
+                            onPress={() => this.props.navigation.navigate('UserBasis')}>
                         <Text style={styles.font_M}>
                             <Ionicons  
                                 size={35} 
                                 name='person-circle-outline' 
                                 style={{ paddingRight:15 }}/>
-                            {"개인/보안"}
+                            {"뉴스 카테고리 수정"}
                                 </Text>
                         </TouchableOpacity>
 

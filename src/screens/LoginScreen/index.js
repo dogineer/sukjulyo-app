@@ -66,7 +66,7 @@ export default class LoginScreen extends Component {
                         opacity: 0,
                         fontSize: 18, 
                         fontWeight: 'bold' }}>
-                        Kakao Login
+                        카카오 로그인
                     </Text>
                 </TouchableOpacity>
         </View>

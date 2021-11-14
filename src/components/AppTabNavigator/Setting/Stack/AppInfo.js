@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 
     font_M:{
         textAlign: 'center',
-        fontSize:0.03*Width,
+        fontSize:0.06*Width,
         margin: 5
     },
 });

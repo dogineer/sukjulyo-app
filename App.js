@@ -22,7 +22,8 @@ const AppStackNavigator = createStackNavigator(
         Login: { 
             screen: MainScreen, 
             navigationOptions: {
-            headerShown: false }
+				headerShown: false 
+			}
         },
         // End Navigatior route
 
@@ -37,7 +38,8 @@ const AppStackNavigator = createStackNavigator(
             screen: BasisScreen,
             navigationOptions: {
                 gestureEnabled: false,
-                headerShown: false }
+                headerShown: false 
+			}
         }, //사용자 카테고리 페이지
 
         HelpPage: { 

@@ -32,7 +32,7 @@ export default class LoginScreen extends Component {
 				}
 			);
 
-			this.props.setToken(params['token'])
+			AsyncStorage.setItem('jwt', params['token']);
 
 			this.props.closeSocialModal();
 		}

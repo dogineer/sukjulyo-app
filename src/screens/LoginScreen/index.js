@@ -33,6 +33,8 @@ export default class LoginScreen extends Component {
         this.setState({
             socialModalVisible: !this.state.socialModalVisible,
         });
+
+		this.props.nav.navigate('UserBasis');
     };
 
     render() {
@@ -45,7 +47,6 @@ export default class LoginScreen extends Component {
 							source={this.state.source}
 							closeSocialModal={this.closeSocialModal}
 							callbackUrl={this.state.CALLBACK_URL}
-							setToken={this.props.setToken}
 						/>
 					): null}
                 <TouchableOpacity

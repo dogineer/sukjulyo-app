@@ -1,36 +1,29 @@
 import React, { Component } from 'react';
-import AsyncStorage, { View, Text } from "react-native";
+import { View, Text } from "react-native";
 import LoginScreen from './LoginScreen';
 import styles from "./styles";
 
-import cookie from 'react-cookies'
+import cookie from 'react-cookies';
 
 export default class MainScreen extends Component {
     constructor(props) {
+		console.log("create main screen")
+
         super(props);
+		const _c = cookie.load('sukjulyo-app-jwt');
         this.state = {
             url: 'https://kapi.kakao.com/v2/user/me', 
 			logedIn: false,
-            token: cookie.load('sukjulyo-app-jwt')
+            token: _c?_c:''
         };
+
+		if(this.state.token)
+			this.goScreen();
     }
 
     goScreen(){
-        this.props.navigation.navigate('UserBasis')
+        this.props.navigation.navigate('UserBasis');
     }
-
-    token_test(){
-		console.log('do token test')
-        console.log(this.state.token);
-        
-    }
-
-	setToken = (token) => {
-		this.setState({
-			...this.state,
-			token
-		});
-	}
 
     render() {
 		
@@ -54,13 +47,14 @@ export default class MainScreen extends Component {
                     "바쁜 현대인들의 위한 짧고 간결한 원하는 뉴스를 제공합니다. \n카카오톡 서비스를 이용하고 있으며 개인정보는 \n'이메일', '이름'만 가져올 뿐 다른 개인정보는 수집하지 않습니다. \n"
                     }</Text>
 
-                    <LoginScreen setToken={this.setToken}/>
+                    <LoginScreen nav={this.props.navigation}/>
 
                     <Text style={{color: 'grey'}}>{"카카오톡앱을 사용하여 로그인을 해주세요! :)\n"}</Text>
                     
 					<Text 
                         style={styles.button}
-                        onPress={() => this.goScreen()} >
+                        //onPress={() => this.goScreen()} 
+						>
                             개발자 테스트 모드
                     </Text>
 

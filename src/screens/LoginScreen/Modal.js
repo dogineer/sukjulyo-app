@@ -17,7 +17,6 @@ const SocialWebviewModal = (props) => {
             <SocialWebview
                 source={{ uri: props.source }}
                 closeSocialModal={props.closeSocialModal}
-				setToken={props.setToken}
 				callbackUrl={props.callbackUrl}
             />
         </Modal>

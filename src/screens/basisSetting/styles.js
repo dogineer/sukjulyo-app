@@ -17,13 +17,22 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(31, 197, 142)'
     },
 
-    contentView:{
-        flexDirection:'row',
+    contentView: {
         alignItems: 'center',
-        width: '100%',
         borderColor: 'darkgrey',
-        padding: 10,
-        marginBottom:10,
+        margin: 3,
+		marginTop: 5, marginBottom: 5,
+		padding: 10,
+        borderRadius: 30,
+        backgroundColor: 'white',
+    },
+
+	moreBtn:{		
+        alignItems: 'center',
+		justifyContent: 'center',
+		margin: 10,
+		padding: 10,
+        borderColor: 'darkgrey',
         borderRadius: 30,
         backgroundColor: 'white',
     },

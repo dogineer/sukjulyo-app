@@ -33,17 +33,14 @@ class BasisScreen extends Component {
 
 	componentDidMount() {
 		let _c = this.state.token;
-		console.log("_c is ", _c);
+
 		if(_c==null || _c=='') {
-			console.log("asnyc storage");
 			AsyncStorage.getItem('jwt', (err, result) => result)
 			.then((token)=>{
-				console.log(token)
 				this.setState({
 					...this.state,
 					token: token
 				})
-				console.log(this.state.token);
 
 				this.LoadHashtags();
 			}).done()
@@ -67,7 +64,6 @@ class BasisScreen extends Component {
 		})
 		.then(response => response.json())
 		.then(json => {
-			console.log(json)
 			if(json) 
 				this.props.navigation.navigate('Home')
 			else {

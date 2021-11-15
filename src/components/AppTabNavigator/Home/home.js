@@ -2,84 +2,80 @@ import React, { Component  } from 'react';
 import { View, Button, Text, FlatList, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
 import style from "./styles";
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import cookie from 'react-cookies';
+
+const SERVER_URL = 'http://localhost:8080';
+
 class HomeScreen extends Component{
     constructor(props){ 
-        super(props); 
-            this.state={
-                datas: [
-                    {
-                        //Sample datas 1
-                        "title" : "오늘의 날씨는 맑음, 곧 뜨뜻",
-                        "content" : "내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용",
-                        "reg" : "2021-11-01",
-                    },
-                    {
-                        //Sample datas 2
-                        "title" : "상규 취업하다! 축하한다.",
-                        "content" : "내용",
-                        "reg" : "2021-10-21",
-                    },
-                    {
-                        //Sample datas 3
-                        "title" : "박봉구 결국 영상 디자인으로.. 두둥탁",
-                        "content" : "내용",
-                        "reg" : "2021-10-24",
-                    },
-                    {
-                        //Sample datas 4
-                        "title" : "킹형준... 실리콘 벨리 취업, AI 개발에 몰두..",
-                        "content" : "내용",
-                        "reg" : "날짜",
-                    },
-                    {
-                        //Sample datas 5
-                        "title" : "타이틀",
-                        "content" : "내용",
-                        "reg" : "날짜",
-                    },
-                    {
-                        //Sample datas 6
-                        "title" : "타이틀",
-                        "content" : "내용",
-                        "reg" : "날짜",
-                    }
-                ],
+        super(props);
 
-                fetch_datas: [],
-                isLoading: false,
-                isFetching: false
-            };
+		let _c = cookie.load('sukjulyo-app-jwt');
+		this.state={
+			datas: [],
+
+			fetch_datas: [],
+			isLoading: false,
+			isFetching: false,
+			token: _c?_c:'',
+		};
     }
 
-    componentDidMount() {
-        this.setState({ isLoading: false});
-        let url = "url"
-            fetch( url ,  {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-            })
-            .then(console.log("get fetch_datas run..."))
-            .then(res => {
-                console.log(JSON.stringify(res));
-                return res.json()})
-            .then(res => this.setState({ fetch_datas: res, isLoading: false }, 
-                () => console.log('data Success')))
-            .catch(err => { console.log('DATA GET ERROR',{ err })})
-        }
+	componentDidMount() {
+		let _c = this.state.token;
+		
+		if(_c==null || _c=='') {
+			AsyncStorage.getItem('jwt', (err, result) => result)
+			.then((token)=>{
+				console.log(token)
+				this.setState({
+					...this.state,
+					token: token
+				})
+				console.log(this.state.token);
 
-        onRefresh() {
-            console.log('refreshing')
-            this.setState({ isFetching: true }, function(){
-                this.fetchData()
-            });
-        }
+				this.LoadNews();
+			});
+		}
+		else {
+			this.LoadNews();
+		}
 
-        fetchData() {
-            alert('refreshing data');
-        }
+		this.setState({ isLoading: false});
+	}
+
+    LoadNews() {
+		let url = SERVER_URL+'/api/v1/news/색'
+		fetch( url ,  {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json',
+				'Authorization': 'Bearer '+this.state.token
+			}
+		})
+		.then(res => res.json())
+		.then(json => {
+			this.setState({ 
+				...this.state,
+				fetch_datas: json.items, 
+				isLoading: false
+			})
+		})
+		.catch(err => { console.log('DATA GET ERROR',{ err })})
+	}
+
+	onRefresh() {
+		console.log('refreshing')
+		this.setState({ isFetching: true }, function(){
+			this.fetchData()
+		});
+	}
+
+	fetchData() {
+		alert('refreshing data');
+	}
     
     news_detail(item){
         this.props.navigation.navigate('NewsDetailPage', {item: item});
@@ -109,9 +105,9 @@ class HomeScreen extends Component{
 
                 <View style={style.root}>
                     <FlatList
-                        data={this.state.datas} 
+                        data={this.state.fetch_datas} 
                         renderItem={this.renderItem}
-                        keyExtractor={ item=> item.name }
+                        keyExtractor={ item=> item.link }
                         onRefresh={() => this.onRefresh}
                         refreshing={this.state.isFetching}
                         />
@@ -120,8 +116,7 @@ class HomeScreen extends Component{
         );
     }
 
-    renderItem=({item})=>{ 
-        console.log(item);
+    renderItem=({item})=>{
         return(
             <SafeAreaView style={{ flex: 1 }}>
                 <ScrollView>
@@ -132,8 +127,8 @@ class HomeScreen extends Component{
 
                         <View style={style.infoView}>
                             <Text style={style.titleText}>{item.title}</Text>
-                            <Text style={style.contentText}>{item.content}</Text>
-                            <Text style={style.contentText}>{item.reg}</Text>
+                            {/*<Text style={style.contentText}>{item.content}</Text>*/}
+                            {/*<Text style={style.contentText}>{item.reg}</Text>*/}
                             
                             <TouchableOpacity 
                                 style={style.ButtonView}

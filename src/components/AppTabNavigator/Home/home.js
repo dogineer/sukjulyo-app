@@ -1,5 +1,5 @@
 import React, { Component  } from 'react';
-import { View, Button, Text, FlatList, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
+import { View, Button, Text, FlatList, TouchableOpacity, ScrollView, SafeAreaView, Linking, Platform} from 'react-native';
 import style from "./styles";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -14,6 +14,8 @@ class HomeScreen extends Component{
 		let _c = cookie.load('sukjulyo-app-jwt');
 		this.state={
 			datas: [],
+			top_3_news: [],
+			summary: '',
 
 			fetch_datas: [],
 			isLoading: false,
@@ -28,12 +30,10 @@ class HomeScreen extends Component{
 		if(_c==null || _c=='') {
 			AsyncStorage.getItem('jwt', (err, result) => result)
 			.then((token)=>{
-				console.log(token)
 				this.setState({
 					...this.state,
 					token: token
 				})
-				console.log(this.state.token);
 
 				this.LoadNews();
 			});
@@ -42,12 +42,52 @@ class HomeScreen extends Component{
 			this.LoadNews();
 		}
 
-		this.setState({ isLoading: false});
+		this.setState({ isLoading: false });
 	}
 
     LoadNews() {
-		let url = SERVER_URL+'/api/v1/news/색'
-		fetch( url ,  {
+		
+		fetch( SERVER_URL+'/news/recommendation' ,  {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json',
+				'Authorization': 'Bearer '+this.state.token
+			}
+		})
+		.then(res => res.json())
+		.then(json => {
+			let news = json.news;
+
+			let summary_text = ''
+			for(let i = 0; i < ( (news?.length >= 3) ? 3 : news.length ); i++) {
+				console.log(i, " : ", news[i])
+				summary_text += (news[i]['summary'] == null ? '' : (news[i]['summary']+'\n'))
+			}
+			if(summary_text != '') summary_text = summary_text.slice(0, -1);
+
+			this.setState({ 
+				...this.state,
+				top_3_news: news.slice(2),
+				fetch_datas: news.slice(3, news.length),
+				summary: (summary_text == '' ? '오늘 뉴스를 요약할 수 없습니다 😥' : summary_text)
+			});
+
+			return json.hashtags;
+		})
+		.then( (hashtags) => {
+			for(let i = 0; i < 3; i++) {
+				if(i >= hashtags.length) break;
+
+				this.loadNewsFromNaver(hashtags[i])
+			}
+		})
+		.catch(err => { console.log('DATA GET ERROR',{ err })})
+
+	}
+
+	loadNewsFromNaver(hashtag) {
+		fetch( SERVER_URL+'/api/v1/news/'+hashtag ,  {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -59,7 +99,7 @@ class HomeScreen extends Component{
 		.then(json => {
 			this.setState({ 
 				...this.state,
-				fetch_datas: json.items, 
+				fetch_datas: this.state.fetch_datas.concat(json.items), 
 				isLoading: false
 			})
 		})
@@ -78,7 +118,12 @@ class HomeScreen extends Component{
 	}
     
     news_detail(item){
-        this.props.navigation.navigate('NewsDetailPage', {item: item});
+		if (Platform.OS === 'web') {
+			Linking.openURL(`${item.link}`)
+		}
+		else {
+			this.props.navigation.navigate('NewsDetailPage', {item: item});
+		}
     }
 
     render(){
@@ -96,7 +141,7 @@ class HomeScreen extends Component{
                     <View style={style.title}>
                             <View style={style.titleContent}>
                                 <Text>
-                                    💡 "ARCHIVE TEAM"로 검색한 결과입니다. 💡
+                                    {this.state.summary}
                                 </Text>
                             </View>
                         </View>

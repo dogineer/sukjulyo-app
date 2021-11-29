@@ -35,7 +35,7 @@ class AppInfo extends Component {
                 />
 
                 <Text style={styles.font_M}>
-                    {"버전: Test version 1.5"}
+                    {"버전: version 2.0"}
                 </Text>
             </View>
         );

@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
     },
 
     font_M:{
-        fontSize:0.09*Width,
-        margin: 3
+        fontSize:0.05*Width,
+        margin: 10
     },
 
     triangle: {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        height: 0.1*Height,
+        height: 0.15*Height,
         width: '100%',
         borderWidth: 0,
         alignItems: 'center',
@@ -79,7 +79,7 @@ class SettingScreen extends Component {
                             onPress={() => this.props.navigation.navigate('UserBasis')}>
                         <Text style={styles.font_M}>
                             <Ionicons  
-                                size={35} 
+                                size={30} 
                                 name='person-circle-outline' 
                                 style={{ paddingRight:15 }}/>
                             {"뉴스 카테고리 수정"}
@@ -91,7 +91,7 @@ class SettingScreen extends Component {
                             onPress={() => alert('준비중입니다.')}>
                         <Text style={styles.font_M}>
                             <Ionicons 
-                                size={35} 
+                                size={30} 
                                 name='ellipsis-horizontal-circle-outline' 
                                 style={{ paddingRight:15 }}/>
                             {"기타"}
@@ -103,7 +103,7 @@ class SettingScreen extends Component {
                             onPress={() => this.props.navigation.navigate('HelpPage')}>
                         <Text style={styles.font_M}>
                             <Ionicons 
-                                size={35} 
+                                size={30} 
                                 name='happy-outline' 
                                 style={{ paddingRight:15 }}/>
                             {"고객센터/도움말"}
@@ -115,7 +115,7 @@ class SettingScreen extends Component {
                             onPress={() => this.props.navigation.navigate('AppInfoPage')}>
                         <Text style={styles.font_M}>
                             <Ionicons  
-                                size={35}
+                                size={30}
                                 name='information-circle-outline' 
                                 style={{ paddingRight:15 }}/>
                             {"버전정보"}

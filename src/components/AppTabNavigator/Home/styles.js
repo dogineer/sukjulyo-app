@@ -25,7 +25,7 @@ const style= StyleSheet.create({
     },
 
     title: {
-        height: 0.1*Height,
+        height: 0.15*Height,
         width: '100%',
         borderWidth: 0,
         alignItems: 'center',
@@ -34,8 +34,11 @@ const style= StyleSheet.create({
     },
 
     titleContent: {
-        padding: '5%',
-        borderRadius: 10,
+		padding: "25px",
+		borderWidth: 0,
+		borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: 'white',
     },
     

@@ -12,7 +12,6 @@ export default class MainScreen extends Component {
         super(props);
 		const _c = cookie.load('sukjulyo-app-jwt');
         this.state = {
-            url: 'https://kapi.kakao.com/v2/user/me', 
 			logedIn: false,
             token: _c?_c:''
         };
@@ -51,18 +50,6 @@ export default class MainScreen extends Component {
 
                     <Text style={{color: 'grey'}}>{"카카오톡앱을 사용하여 로그인을 해주세요! :)\n"}</Text>
                     
-					<Text 
-                        style={styles.button}
-                        //onPress={() => this.goScreen()} 
-						>
-                            개발자 테스트 모드
-                    </Text>
-
-                    <Text 
-                        style={styles.button}
-                        onPress={() => this.token_test()} >
-                            토큰테스트
-                    </Text>
                 </View>
 
                 <View style={styles.footer}>

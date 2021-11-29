@@ -14,15 +14,12 @@ class NewsDetail extends Component {
 
     render() {
         return (
-            <ScrollView style={styles.container}>
-                <View>
-                    <View style={styles.infoView}>
-                        <Text style={styles.titleText}>{this.state.item.title}</Text>
-                        <Text style={styles.contentText}>{this.state.item.content}</Text>
-                        <Text style={styles.contentText}>{this.state.item.reg}</Text>
-                    </View>
-                </View>
-            </ScrollView>
+			<View>
+				<WebView
+					originWhitelist={['*']}
+					source={{ uri: props.item.link }}
+				/>
+			</View>
         );
     }
 }
